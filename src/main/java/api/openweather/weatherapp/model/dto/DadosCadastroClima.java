@@ -1,0 +1,33 @@
+package api.openweather.weatherapp.model.dto;
+
+import api.openweather.weatherapp.model.SituacaoClima;
+import api.openweather.weatherapp.model.Turno;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
+
+public record DadosCadastroClima (
+        @NotNull
+        SituacaoClima situacaoClima,
+        @NotNull
+        Turno turno,
+        @NotBlank
+        String data,
+        @NotNull
+        @Positive
+        String umidade,
+        @NotNull
+        @Positive
+        String precipitacao,
+        @NotNull
+        @Positive
+        String temperatura,
+        @NotNull
+        @Positive
+        String velVento,
+        @NotNull
+        String tempMaxima,
+        @NotNull
+        String tempMinima
+) {}
