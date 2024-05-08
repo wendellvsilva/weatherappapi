@@ -1,4 +1,4 @@
-package api.openweather.weatherapp.model;
+package api.openweather.weatherapp.model.enums;
 
 public enum Turno {
 

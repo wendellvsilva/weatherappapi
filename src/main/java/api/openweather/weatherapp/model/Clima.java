@@ -1,6 +1,8 @@
 package api.openweather.weatherapp.model;
 
 import api.openweather.weatherapp.model.dto.DadosCadastroClima;
+import api.openweather.weatherapp.model.enums.SituacaoClima;
+import api.openweather.weatherapp.model.enums.Turno;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

@@ -3,14 +3,12 @@ package api.openweather.weatherapp.model;
 import api.openweather.weatherapp.model.dto.AtualizarCidadeDTO;
 import api.openweather.weatherapp.model.dto.DadosCadastroCidade;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Table(name = "cidades")
 @Entity(name = "Cidade")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -37,4 +35,5 @@ public class Cidade {
             this.clima.atualizarInformacoes(atualizacao.dadosCadastroClima());
         }
     }
+
 }

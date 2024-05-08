@@ -6,22 +6,14 @@ import api.openweather.weatherapp.repository.CidadeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import api.openweather.weatherapp.model.dto.AtualizarCidadeDTO;
-import api.openweather.weatherapp.model.dto.DadosCadastroCidade;
 import api.openweather.weatherapp.model.dto.DadosListagemCidade;
-import api.openweather.weatherapp.model.Cidade;
-import api.openweather.weatherapp.repository.CidadeRepository;
-import api.openweather.weatherapp.service.CidadeService;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+
 
 import java.util.Optional;
 
@@ -51,7 +43,7 @@ public class CidadeService {
         if (optionalCidade.isPresent()) {
             Cidade cidade = optionalCidade.get();
             cidade.atualizarInformacoes(atualizacao);
-            return ResponseEntity.ok().body("Cidade atualizada com sucesso");
+            return ResponseEntity.ok().body("Cidade atualizada   com sucesso");
         } else {
             throw new IllegalArgumentException("Cidade não encontrada para o ID fornecido");
         }
