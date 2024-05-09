@@ -23,11 +23,7 @@ public class CidadeService {
     @Autowired
     private CidadeRepository repository;
 
-    @Transactional
-    public Cidade cadastrar(@RequestBody DadosCadastroCidade dados){
-        if(dados.cidade() == null) {
-            throw new IllegalArgumentException("Nome da cidade deve ser informado");
-        }
+    public Cidade cadastrar(@RequestBody @Valid DadosCadastroCidade dados){
         return repository.save(new Cidade(dados));
 
     }

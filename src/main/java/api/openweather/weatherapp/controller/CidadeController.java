@@ -27,7 +27,7 @@ public class CidadeController {
     @PostMapping
     public ResponseEntity<Cidade> cadastrar(@RequestBody DadosCadastroCidade dados){
       Cidade cidade = cidadeService.cadastrar(dados);
-         return ResponseEntity.created(null).body(cidade);
+         return ResponseEntity.status(201).body(cidade);
     }
 
     @GetMapping("/{cidade}")
@@ -45,7 +45,7 @@ public class CidadeController {
     @DeleteMapping("/{id}")// /{id} serve pra ser um parametro dinamico
     public ResponseEntity<Long> excluir(@PathVariable Long id) {
         cidadeService.excluir(id);
-        return ResponseEntity.ok().body(id);
+        return ResponseEntity.noContent().build();
     }
 }
 

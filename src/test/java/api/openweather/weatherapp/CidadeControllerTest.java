@@ -36,7 +36,7 @@ class CidadeControllerTest {
     }
 
     @Test
-    void cadastrar_deveRetornarCidadeCriada() {
+    void cadastrarRetornarCidadeCriada() {
         DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade("CidadeTeste",new DadosCadastroClima(
                 SituacaoClima.CHOVENDO,
                 Turno.MANHÃ,
@@ -57,7 +57,27 @@ class CidadeControllerTest {
     }
 
     @Test
-    void listar_deveRetornarListaDeCidades() {
+    void cadastrarCidadeComErro() {
+        DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade(null,new DadosCadastroClima(
+                SituacaoClima.CHOVENDO,
+                Turno.MANHÃ,
+                "06/05/2024 15:00:00",
+                "2",
+                "1",
+                "2",
+                "4",
+                null,
+                "10"));
+        Cidade cidade = new Cidade(dadosCadastroCidade);
+        when(cidadeService.cadastrar(dadosCadastroCidade)).thenReturn(cidade);
+
+        ResponseEntity<Cidade> response = cidadeController.cadastrar(dadosCadastroCidade);
+
+        assertEquals(400, response.getStatusCodeValue());
+        assertEquals(cidade, response.getBody());
+    }
+    @Test
+    void listarCidades() {
         Pageable pageable = Pageable.unpaged();
         Page<DadosListagemCidade> page = new PageImpl<>(Collections.emptyList());
         when(cidadeService.listar(pageable)).thenReturn(page);
@@ -69,7 +89,7 @@ class CidadeControllerTest {
     }
 
     @Test
-    void atualizar_deveRetornarSucesso() {
+    void atualizarRetornarSucesso() {
         AtualizarCidadeDTO atualizacao = new AtualizarCidadeDTO(1L, "CidadeTeste", null);
         ResponseEntity<String> response = cidadeController.atualizar(atualizacao);
 
@@ -78,7 +98,7 @@ class CidadeControllerTest {
     }
 
     @Test
-    void excluir_deveRetornarIdDaCidadeExcluida() {
+    void excluirIdDaCidade() {
         Long cidadeId = 1L;
         ResponseEntity<Long> response = cidadeController.excluir(cidadeId);
 
