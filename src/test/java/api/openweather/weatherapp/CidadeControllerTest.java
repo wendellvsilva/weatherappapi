@@ -58,7 +58,8 @@ class CidadeControllerTest {
 
     @Test
     void cadastrarCidadeComErro() {
-        DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade(null,new DadosCadastroClima(
+        DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade("Porto Alegre",
+                new DadosCadastroClima(
                 SituacaoClima.CHOVENDO,
                 Turno.MANHÃ,
                 "06/05/2024 15:00:00",
@@ -66,7 +67,7 @@ class CidadeControllerTest {
                 "1",
                 "2",
                 "4",
-                null,
+                "2",
                 "10"));
         Cidade cidade = new Cidade(dadosCadastroCidade);
         when(cidadeService.cadastrar(dadosCadastroCidade)).thenReturn(cidade);

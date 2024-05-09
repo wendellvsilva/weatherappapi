@@ -33,18 +33,15 @@ public class CidadeService {
         return repository.findAll(pagina).map(DadosListagemCidade::new);
     }
 
-    @Transactional
     public ResponseEntity<String> atualizar(@RequestBody @Valid AtualizarCidadeDTO atualizacao) {
-        Optional<Cidade> optionalCidade = repository.findById(atualizacao.id());
-        if (optionalCidade.isPresent()) {
-            Cidade cidade = optionalCidade.get();
-            cidade.atualizarInformacoes(atualizacao);
-            return ResponseEntity.ok().body("Cidade atualizada   com sucesso");
-        } else {
-            throw new IllegalArgumentException("Cidade não encontrada para o ID fornecido");
-        }
-    }
+        Cidade cidade = repository.findById(atualizacao.id())
+                .orElseThrow(() -> new IllegalArgumentException("Cidade não encontrada para o ID fornecido"));
 
+        cidade.atualizarInformacoes(atualizacao);
+        repository.save(cidade);
+
+        return ResponseEntity.ok().body("Cidade atualizada com sucesso");
+    }
     @Transactional
     public void excluir(Long id) {
         repository.deleteById(id);
