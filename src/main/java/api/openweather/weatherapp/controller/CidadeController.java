@@ -1,6 +1,6 @@
 package api.openweather.weatherapp.controller;
 
-import api.openweather.weatherapp.model.dto.AtualizarCidadeDTO;
+import api.openweather.weatherapp.model.dto.DadosAtualizarCidade;
 import api.openweather.weatherapp.model.dto.DadosCadastroCidade;
 import api.openweather.weatherapp.model.dto.DadosListagemCidade;
 import api.openweather.weatherapp.model.Cidade;
@@ -37,7 +37,7 @@ public class CidadeController {
 }
 
     @PutMapping
-    public ResponseEntity<String> atualizar(@RequestBody @Valid AtualizarCidadeDTO atualizacao){
+    public ResponseEntity<String> atualizar(@RequestBody @Valid DadosAtualizarCidade atualizacao){
         cidadeService.atualizar(atualizacao);
         return ResponseEntity.ok().body("Cidade atualizada com sucesso");
     }

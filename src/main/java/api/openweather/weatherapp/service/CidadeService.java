@@ -1,5 +1,6 @@
 package api.openweather.weatherapp.service;
 
+import api.openweather.weatherapp.model.Clima;
 import api.openweather.weatherapp.model.dto.DadosCadastroCidade;
 import api.openweather.weatherapp.model.Cidade;
 import api.openweather.weatherapp.repository.CidadeRepository;
@@ -7,15 +8,12 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-import api.openweather.weatherapp.model.dto.AtualizarCidadeDTO;
+import api.openweather.weatherapp.model.dto.DadosAtualizarCidade;
 import api.openweather.weatherapp.model.dto.DadosListagemCidade;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-
-
-import java.util.Optional;
 
 @Service
 public class CidadeService {
@@ -23,27 +21,38 @@ public class CidadeService {
     @Autowired
     private CidadeRepository repository;
 
-    public Cidade cadastrar(@RequestBody @Valid DadosCadastroCidade dados){
-        return repository.save(new Cidade(dados));
+    public Cidade cadastrar(DadosCadastroCidade dados){
+        if(dados.clima() == null) {
+            throw new IllegalArgumentException("Clima não pode ser nulo");
+        }
+
+        if(dados.cidade() == null){
+            throw new IllegalArgumentException("Cidade não pode ser nula");
+        }
+            Clima clima = new Clima(dados.clima());
+            Cidade cidade = new Cidade(dados.cidade(), clima);
+            return repository.save(cidade);
 
     }
 
-    @Transactional
     public Page<DadosListagemCidade> listar(Pageable pagina) {
         return repository.findAll(pagina).map(DadosListagemCidade::new);
     }
 
-    public ResponseEntity<String> atualizar(@RequestBody @Valid AtualizarCidadeDTO atualizacao) {
+    public Cidade atualizar(@RequestBody @Valid DadosAtualizarCidade atualizacao) {
         Cidade cidade = repository.findById(atualizacao.id())
                 .orElseThrow(() -> new IllegalArgumentException("Cidade não encontrada para o ID fornecido"));
 
         cidade.atualizarInformacoes(atualizacao);
-        repository.save(cidade);
+        return repository.save(cidade);
 
-        return ResponseEntity.ok().body("Cidade atualizada com sucesso");
+
     }
-    @Transactional
     public void excluir(Long id) {
-        repository.deleteById(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("Cidade não encontrada para o ID fornecido");
+        }
     }
 }

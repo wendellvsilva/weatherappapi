@@ -1,6 +1,6 @@
 package api.openweather.weatherapp.model.dto;
 
-public record AtualizarCidadeDTO(
+public record DadosAtualizarCidade(
         Long id,
         String cidade,
 

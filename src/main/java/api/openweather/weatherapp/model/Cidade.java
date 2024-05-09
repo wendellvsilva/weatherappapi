@@ -1,15 +1,13 @@
 package api.openweather.weatherapp.model;
 
-import api.openweather.weatherapp.model.dto.AtualizarCidadeDTO;
-import api.openweather.weatherapp.model.dto.DadosCadastroCidade;
+import api.openweather.weatherapp.model.dto.DadosAtualizarCidade;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Table(name = "cidades")
 @Entity(name = "Cidade")
 @Getter
-@Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Cidade {
@@ -22,12 +20,22 @@ public class Cidade {
     @Embedded
     private Clima clima;
 
-    public Cidade(DadosCadastroCidade dados) {
-        this.cidade = dados.cidade();
-        this.clima = new Clima(dados.clima());
+    public Cidade(String cidade, Clima clima) {
+        setCidade(cidade);
+        setClima(clima);
     }
 
-    public void atualizarInformacoes(AtualizarCidadeDTO atualizacao) {
+    public void setCidade(String cidade) {
+        if(cidade == null) throw new IllegalArgumentException("Cidade não poode ser nula");
+        this.cidade = cidade;
+    }
+
+    public void setClima(Clima clima) {
+        if(clima == null) throw new IllegalArgumentException("Cidade não poode ser nula");
+        this.clima = clima;
+    }
+
+    public void atualizarInformacoes(DadosAtualizarCidade atualizacao) {
         if(atualizacao.cidade() != null){
             this.cidade = atualizacao.cidade();
         }

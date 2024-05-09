@@ -13,8 +13,7 @@ import java.time.format.DateTimeFormatter;
 
 @Embeddable
 @Getter
-@Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Clima {
 
