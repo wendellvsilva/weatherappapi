@@ -30,7 +30,7 @@ public class CidadeController {
          return ResponseEntity.created(null).body(cidade);
     }
 
-    @GetMapping
+    @GetMapping("/{cidade}")
     public ResponseEntity<Page<DadosListagemCidade>> listar(@PageableDefault(size = 10, sort = {"cidade"}) Pageable pagina){
         return ResponseEntity.ok().body(cidadeService.listar(pagina));
 

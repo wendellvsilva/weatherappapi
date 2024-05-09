@@ -15,16 +15,15 @@ public record DadosCadastroClima (
         @NotBlank
         String data,
         @NotNull
-        @Positive
+
         String umidade,
         @NotNull
-        @Positive
+
         String precipitacao,
         @NotNull
-        @Positive
         String temperatura,
         @NotNull
-        @Positive
+
         String velVento,
         @NotNull
         String tempMaxima,

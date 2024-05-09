@@ -30,12 +30,12 @@ public class CidadeServiceTest {
     @InjectMocks
     private CidadeService cidadeService;
 
-    @Test
-    public void testCadastrarCidades() {
-        List<Cidade> cidades = new ArrayList<>();
-        cidades.add(new Cidade(1L, "Porto Alegre", new Clima()));
-
-    }
+//    @Test
+//    public void testCadastrarCidades() {
+//        List<Cidade> cidades = new ArrayList<>();
+//        cidades.add(new Cidade(1L, "Porto Alegre", new Clima()));
+//
+//    }
 
     @Test
     public void testListarCidadesComSucesso() {
