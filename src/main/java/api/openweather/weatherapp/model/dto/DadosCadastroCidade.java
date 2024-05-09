@@ -9,7 +9,6 @@ public record DadosCadastroCidade(
         @NotEmpty
         @Valid
         String cidade,
-
         @NotNull
         @Valid
         DadosCadastroClima clima

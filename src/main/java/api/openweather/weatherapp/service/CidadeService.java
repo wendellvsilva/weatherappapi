@@ -4,7 +4,6 @@ import api.openweather.weatherapp.model.Clima;
 import api.openweather.weatherapp.model.dto.DadosCadastroCidade;
 import api.openweather.weatherapp.model.Cidade;
 import api.openweather.weatherapp.repository.CidadeRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +12,6 @@ import api.openweather.weatherapp.model.dto.DadosListagemCidade;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 
 @Service
 public class CidadeService {

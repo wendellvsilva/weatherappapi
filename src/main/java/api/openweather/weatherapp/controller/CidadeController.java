@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("cidades")
+@RequestMapping("/cidades")
 public class CidadeController {
 
 
@@ -30,7 +30,7 @@ public class CidadeController {
          return ResponseEntity.status(201).body(cidade);
     }
 
-    @GetMapping("/{cidade}")
+    @GetMapping("/{cidades}")
     public ResponseEntity<Page<DadosListagemCidade>> listar(@PageableDefault(size = 10, sort = {"cidade"}) Pageable pagina){
         return ResponseEntity.ok().body(cidadeService.listar(pagina));
 

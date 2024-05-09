@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Table(name = "cidades")
-@Entity(name = "Cidade")
+@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
