@@ -56,6 +56,7 @@ public class CidadeControllerTest {
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.cidade").exists())
                 .andExpect(jsonPath("$.clima.data").exists())
+                .andExpect(jsonPath("$.clima.turno").exists())
                 .andExpect(jsonPath("$.clima.turno").isNotEmpty())
                 .andExpect(jsonPath("$.clima.umidade").exists())
                 .andExpect(jsonPath("$.clima.precipitacao").exists())
