@@ -42,7 +42,7 @@ public class CidadeController {
         return ResponseEntity.ok().body("Cidade atualizada com sucesso");
     }
 
-    @DeleteMapping("/{id}")// /{id} serve pra ser um parametro dinamico
+    @DeleteMapping("/{id}")
     public ResponseEntity<Long> excluir(@PathVariable Long id) {
         cidadeService.excluir(id);
         return ResponseEntity.noContent().build();
