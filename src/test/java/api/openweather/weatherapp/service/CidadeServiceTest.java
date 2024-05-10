@@ -2,6 +2,8 @@ package api.openweather.weatherapp.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import api.openweather.weatherapp.exceptions.CidadeNotFoundException;
+import api.openweather.weatherapp.exceptions.ClimaNotFoundException;
 import api.openweather.weatherapp.model.Cidade;
 import api.openweather.weatherapp.model.Clima;
 import api.openweather.weatherapp.model.dto.DadosAtualizarCidade;
@@ -76,13 +78,13 @@ public class CidadeServiceTest {
                 "4",
                 "6",
                 "10"));
-        assertThrows(IllegalArgumentException.class,() -> cidadeService.cadastrar(dadosCadastroCidade));
+        assertThrows(CidadeNotFoundException.class,() -> cidadeService.cadastrar(dadosCadastroCidade));
     }
 
     @Test
     public void testCadastrarClimaNulo() {
         DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade("Belo Horizonte",null);
-        assertThrows(IllegalArgumentException.class,() -> cidadeService.cadastrar(dadosCadastroCidade));
+        assertThrows(ClimaNotFoundException.class,() -> cidadeService.cadastrar(dadosCadastroCidade));
     }
 
 

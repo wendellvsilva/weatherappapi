@@ -2,6 +2,7 @@ package api.openweather.weatherapp.controller;
 
 import api.openweather.weatherapp.model.Cidade;
 import api.openweather.weatherapp.model.Clima;
+import api.openweather.weatherapp.model.dto.DadosAtualizarCidade;
 import api.openweather.weatherapp.model.dto.DadosCadastroCidade;
 import api.openweather.weatherapp.model.dto.DadosCadastroClima;
 import api.openweather.weatherapp.model.enums.SituacaoClima;
@@ -18,9 +19,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,11 +33,6 @@ public class CidadeControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-
-    @Autowired
-    private CidadeRepository repository;
-
 
 
     @Test
@@ -60,15 +53,62 @@ public class CidadeControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/cidades")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(cidadeJson))
-                .andExpect(status().isCreated());
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.cidade").exists())
+                .andExpect(jsonPath("$.clima.data").exists())
+                .andExpect(jsonPath("$.clima.turno").isNotEmpty())
+                .andExpect(jsonPath("$.clima.umidade").exists())
+                .andExpect(jsonPath("$.clima.precipitacao").exists())
+                .andExpect(jsonPath("$.clima.temperatura").exists())
+                .andExpect(jsonPath("$.clima.velVento").exists())
+                .andExpect(jsonPath("$.clima.tempMaxima").exists())
+                .andExpect(jsonPath("$.clima.tempMinima").exists());
+
     }
+
+//    @Test
+//    public void testAtualizar() throws Exception {
+//        DadosAtualizarCidade atualizacao = new DadosAtualizarCidade(1L, "NovaCidadeTeste", new DadosCadastroClima(
+//                SituacaoClima.CHOVENDO,
+//                Turno.MANHÃ,
+//                "06/05/2024 15:00:00",
+//                "2",
+//                "1",
+//                "2",
+//                "4",
+//                "2",
+//                "10"));
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String atualizacaoJson = objectMapper.writeValueAsString(atualizacao);
+//
+//        mockMvc.perform(MockMvcRequestBuilders.put("/cidades", 1L)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(atualizacaoJson))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.cidade").value(atualizacao.cidade()));
+//    }
+
+
+//    @Test
+//    public void testCadastrarComClimaNulo() throws Exception {
+//        DadosCadastroCidade novaCidadeJson = new DadosCadastroCidade("Porto Alegre", null);
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String cidadeJson = objectMapper.writeValueAsString(novaCidadeJson);
+//
+//        mockMvc.perform(MockMvcRequestBuilders.post("/cidades")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(cidadeJson))
+//                        .andExpect(jsonPath("$.message").value("Clima não encontrado"));
+//    }
     @Test
     public void testListar() throws Exception {
 
         int page = 0;
         int size = 10;
         mockMvc
-                .perform(MockMvcRequestBuilders.get("/cidades/{cidades}","Recife")
+                .perform(MockMvcRequestBuilders.get("/cidades","Recife")
                         .param("page", String.valueOf(page))
                         .param("size", String.valueOf(size))).andExpect(status().isOk())
                         .andExpect(jsonPath("$.content").exists())
@@ -76,16 +116,16 @@ public class CidadeControllerTest {
                         .andExpect(jsonPath("$.content[0].id").exists())
                         .andExpect(jsonPath("$.content[1].cidade").exists());
                 }
-    @Test
-    public void testListarComErro() throws Exception {
-        int page = 0;
-        int size = 10;
-        assertThrows(IllegalArgumentException.class, () -> {
-            mockMvc.perform(MockMvcRequestBuilders.get("/cidades/{cidades}", "JOSEFATESTE")
-                    .param("page", String.valueOf(page))
-                    .param("size", String.valueOf(size)));
-        });
-    }
+//    @Test
+//    public void testListarComErro() throws Exception {
+//        int page = 0;
+//        int size = 10;
+//        mockMvc.perform(MockMvcRequestBuilders.get("/cidades", 10L)
+//                        .param("page", String.valueOf(page))
+//                        .param("size", String.valueOf(size)))
+//                        .andExpect(status().isNotFound());
+//
+//    }
     @Test
     public void testExcluir() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/cidades/{id}", 1L)

@@ -1,5 +1,7 @@
 package api.openweather.weatherapp.service;
 
+import api.openweather.weatherapp.exceptions.CidadeNotFoundException;
+import api.openweather.weatherapp.exceptions.ClimaNotFoundException;
 import api.openweather.weatherapp.model.Clima;
 import api.openweather.weatherapp.model.dto.DadosCadastroCidade;
 import api.openweather.weatherapp.model.Cidade;
@@ -21,11 +23,11 @@ public class CidadeService {
 
     public Cidade cadastrar(DadosCadastroCidade dados){
         if(dados.clima() == null) {
-            throw new IllegalArgumentException("Clima não pode ser nulo");
+            throw new ClimaNotFoundException();
         }
 
         if(dados.cidade() == null){
-            throw new IllegalArgumentException("Cidade não pode ser nula");
+            throw new CidadeNotFoundException();
         }
             Clima clima = new Clima(dados.clima());
             Cidade cidade = new Cidade(dados.cidade(), clima);

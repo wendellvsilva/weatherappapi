@@ -31,7 +31,7 @@ public class Cidade {
     }
 
     public void setClima(Clima clima) {
-        if(clima == null) throw new IllegalArgumentException("Cidade não poode ser nula");
+        if(clima == null) throw new IllegalArgumentException("Clima não poode ser nulo");
         this.clima = clima;
     }
 
