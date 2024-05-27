@@ -9,7 +9,6 @@ import api.openweather.weatherapp.model.Clima;
 import api.openweather.weatherapp.model.dto.DadosAtualizarCidade;
 import api.openweather.weatherapp.model.dto.DadosCadastroCidade;
 import api.openweather.weatherapp.model.dto.DadosCadastroClima;
-import api.openweather.weatherapp.model.dto.DadosListagemCidade;
 import api.openweather.weatherapp.model.enums.SituacaoClima;
 import api.openweather.weatherapp.model.enums.Turno;
 import api.openweather.weatherapp.repository.CidadeRepository;
@@ -19,7 +18,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
-
 
 import static org.mockito.Mockito.*;
 
@@ -34,7 +32,7 @@ public class CidadeServiceTest {
 
     @Test
     public void testCadastrarCidadeComSucesso() {
-        DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade("Porto Alegre",new DadosCadastroClima(
+        DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade("Porto Alegre", new DadosCadastroClima(
                 SituacaoClima.CHOVENDO,
                 Turno.MANHÃ,
                 "06/05/2024 15:00:00",
@@ -44,7 +42,7 @@ public class CidadeServiceTest {
                 "4",
                 "6",
                 "10"));
-                Clima clima = new Clima(new DadosCadastroClima(
+        Clima clima = new Clima(new DadosCadastroClima(
                 SituacaoClima.CHOVENDO,
                 Turno.MANHÃ,
                 "06/05/2024 15:00:00",
@@ -68,7 +66,7 @@ public class CidadeServiceTest {
 
     @Test
     public void testCadastrarCidadeNula() {
-        DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade(null,new DadosCadastroClima(
+        DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade(null, new DadosCadastroClima(
                 SituacaoClima.CHOVENDO,
                 Turno.MANHÃ,
                 "06/05/2024 15:00:00",
@@ -78,28 +76,27 @@ public class CidadeServiceTest {
                 "4",
                 "6",
                 "10"));
-        assertThrows(CidadeNotFoundException.class,() -> cidadeService.cadastrar(dadosCadastroCidade));
+        assertThrows(CidadeNotFoundException.class, () -> cidadeService.cadastrar(dadosCadastroCidade));
     }
 
     @Test
     public void testCadastrarClimaNulo() {
-        DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade("Belo Horizonte",null);
-        assertThrows(ClimaNotFoundException.class,() -> cidadeService.cadastrar(dadosCadastroCidade));
+        DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade("Belo Horizonte", null);
+        assertThrows(ClimaNotFoundException.class, () -> cidadeService.cadastrar(dadosCadastroCidade));
     }
-
-
 
     @Test
     public void testAtualizarCidadeComSucesso() {
-        DadosAtualizarCidade atualizacao = new DadosAtualizarCidade(1L, "CidadeTeste", new DadosCadastroClima(SituacaoClima.CHOVENDO,
-                Turno.MANHÃ,
-                "06/05/2024 15:00:00",
-                "2",
-                "1",
-                "2",
-                "4",
-                "2",
-                "10"));
+        DadosAtualizarCidade atualizacao = new DadosAtualizarCidade(1L, "CidadeTeste",
+                new DadosCadastroClima(SituacaoClima.CHOVENDO,
+                        Turno.MANHÃ,
+                        "06/05/2024 15:00:00",
+                        "2",
+                        "1",
+                        "2",
+                        "4",
+                        "2",
+                        "10"));
         Cidade cidade = new Cidade(1L, "CidadeTeste", new Clima(new DadosCadastroClima(SituacaoClima.CHOVENDO,
                 Turno.MANHÃ,
                 "06/05/2024 15:00:00",
@@ -113,10 +110,10 @@ public class CidadeServiceTest {
         when(cidadeRepository.findById(anyLong())).thenReturn(Optional.of(cidade));
         when(cidadeRepository.save(any(Cidade.class))).thenReturn(cidade);
 
-        Cidade cidadeAtualizada = cidadeService.atualizar(atualizacao);
+        Cidade cidadeAtualizada = cidadeService.atualizar(1L, atualizacao);
 
         verify(cidadeRepository, times(1)).findById(anyLong());
-        assertEquals(cidade.getCidade(),cidadeAtualizada.getCidade());
+        assertEquals(cidade.getCidade(), cidadeAtualizada.getCidade());
         verify(cidadeRepository, times(1)).save(any(Cidade.class));
     }
 
@@ -137,20 +134,21 @@ public class CidadeServiceTest {
         assertThrows(IllegalArgumentException.class, () -> cidadeService.excluir(cidadeId));
     }
 
-//    @Test
-//    public void testListarCidadesComSucesso() {
-//        List<Cidade> cidades = new ArrayList<>();
-//        cidades.add(new Cidade(1L, "Cidade 1", new Clima(null)));
-//        cidades.add(new Cidade(2L, "Cidade 2", new Clima(null)));
-//        Page<Cidade> paginaCidades = new PageImpl<>(cidades);
-//
-//        when(cidadeRepository.findAll(any(Pageable.class))).thenReturn(paginaCidades);
-//
-//        Page<DadosListagemCidade> paginaListagem = cidadeService.listar(Pageable.unpaged());
-//
-//        assertNotNull(paginaListagem);
-//        assertEquals(2, paginaListagem.getTotalElements());
-//        verify(cidadeRepository, times(1)).findAll(any(Pageable.class));
-//    }
+    // @Test
+    // public void testListarCidadesComSucesso() {
+    // List<Cidade> cidades = new ArrayList<>();
+    // cidades.add(new Cidade(1L, "Cidade 1", new Clima(null)));
+    // cidades.add(new Cidade(2L, "Cidade 2", new Clima(null)));
+    // Page<Cidade> paginaCidades = new PageImpl<>(cidades);
+    //
+    // when(cidadeRepository.findAll(any(Pageable.class))).thenReturn(paginaCidades);
+    //
+    // Page<DadosListagemCidade> paginaListagem =
+    // cidadeService.listar(Pageable.unpaged());
+    //
+    // assertNotNull(paginaListagem);
+    // assertEquals(2, paginaListagem.getTotalElements());
+    // verify(cidadeRepository, times(1)).findAll(any(Pageable.class));
+    // }
 
 }

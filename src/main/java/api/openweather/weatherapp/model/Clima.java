@@ -8,8 +8,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 @Embeddable
 @Getter
@@ -17,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor
 public class Clima {
 
-    private LocalDateTime data;
+    private LocalDate data;
 
     private String umidade;
     private String precipitacao;
@@ -33,8 +32,7 @@ public class Clima {
     private Turno turno;
 
     public Clima(DadosCadastroClima clima) {
-        this.data = LocalDateTime.parse(clima.data(),
-                DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")); // formatação da data e hora
+        this.data = LocalDate.parse(clima.data());
         this.umidade = clima.umidade();
         this.precipitacao = clima.precipitacao();
         this.temperatura = clima.temperatura();
@@ -47,7 +45,7 @@ public class Clima {
 
     public void atualizarInformacoes(DadosCadastroClima dadosClima) {
         if (dadosClima.data() != null) {
-            this.data = LocalDateTime.parse(dadosClima.data(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+            this.data = LocalDate.parse(dadosClima.data());
         }
         if (dadosClima.umidade() != null) {
             this.umidade = dadosClima.umidade();

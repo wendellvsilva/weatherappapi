@@ -1,13 +1,9 @@
 package api.openweather.weatherapp.controller;
 
-import api.openweather.weatherapp.model.Cidade;
-import api.openweather.weatherapp.model.Clima;
-import api.openweather.weatherapp.model.dto.DadosAtualizarCidade;
 import api.openweather.weatherapp.model.dto.DadosCadastroCidade;
 import api.openweather.weatherapp.model.dto.DadosCadastroClima;
 import api.openweather.weatherapp.model.enums.SituacaoClima;
 import api.openweather.weatherapp.model.enums.Turno;
-import api.openweather.weatherapp.repository.CidadeRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

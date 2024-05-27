@@ -14,31 +14,31 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/cidades")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CidadeController {
-
-
 
     @Autowired
     private CidadeService cidadeService;
 
     @PostMapping
-    public ResponseEntity<Cidade> cadastrar(@RequestBody DadosCadastroCidade dados){
-      Cidade cidade = cidadeService.cadastrar(dados);
-         return ResponseEntity.status(201).body(cidade);
+    public ResponseEntity<Cidade> cadastrar(@RequestBody DadosCadastroCidade dados) {
+        Cidade cidade = cidadeService.cadastrar(dados);
+        return ResponseEntity.status(201).body(cidade);
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemCidade>> listar(@PageableDefault(size = 10, sort = {"cidade"}) Pageable pagina){
+    public ResponseEntity<Page<DadosListagemCidade>> listar(
+            @PageableDefault(size = 10, sort = { "cidade" }) Pageable pagina) {
         return ResponseEntity.ok().body(cidadeService.listar(pagina));
 
-}
+    }
 
-    @PutMapping
-    public ResponseEntity<String> atualizar(@RequestBody @Valid DadosAtualizarCidade atualizacao){
-        cidadeService.atualizar(atualizacao);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> atualizar(@PathVariable Long id,
+            @RequestBody @Valid DadosAtualizarCidade atualizacao) {
+        cidadeService.atualizar(id, atualizacao);
         return ResponseEntity.ok().body("Cidade atualizada com sucesso");
     }
 
@@ -48,5 +48,3 @@ public class CidadeController {
         return ResponseEntity.noContent().build();
     }
 }
-
-
