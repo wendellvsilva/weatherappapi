@@ -2,6 +2,8 @@ package api.openweather.weatherapp.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.text.SimpleDateFormat;
+
 import api.openweather.weatherapp.exceptions.CidadeNotFoundException;
 import api.openweather.weatherapp.exceptions.ClimaNotFoundException;
 import api.openweather.weatherapp.model.Cidade;
@@ -13,6 +15,7 @@ import api.openweather.weatherapp.model.dto.DadosListagemCidade;
 import api.openweather.weatherapp.model.enums.SituacaoClima;
 import api.openweather.weatherapp.model.enums.Turno;
 import api.openweather.weatherapp.repository.CidadeRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,6 +25,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +42,9 @@ public class CidadeServiceTest {
     private CidadeService cidadeService;
 
     @Test
-    public void testCadastrarCidadeComSucesso() {
+    @DisplayName("Deve cadastrar com os campos corretos.")
+    public void deveCadastrarComSucesso() {
+
         DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade("Porto Alegre", new DadosCadastroClima(
                 SituacaoClima.CHOVENDO,
                 Turno.MANHÃ,
@@ -47,36 +53,32 @@ public class CidadeServiceTest {
                 "1",
                 "2",
                 "4",
-                "6",
+                "12",
                 "10"));
-        Clima clima = new Clima(new DadosCadastroClima(
-                SituacaoClima.CHOVENDO,
-                Turno.MANHÃ,
-                "06/05/2024",
-                null,
-                "1",
-                "2",
-                "4",
-                "6",
-                "10"));
-        Cidade cidade = new Cidade("Porto Alegre", clima);
 
-        when(cidadeRepository.save(any(Cidade.class))).thenReturn(cidade);
 
+        when(cidadeRepository.save(any(Cidade.class))).thenAnswer(invocation -> invocation.getArgument(0));
         Cidade cidadeSalva = cidadeService.cadastrar(dadosCadastroCidade);
-
         assertNotNull(cidadeSalva);
-        assertEquals(cidade.getCidade(), cidadeSalva.getCidade());
-        assertEquals(cidade.getClima(), cidadeSalva.getClima());
-        verify(cidadeRepository, times(1)).save(any(Cidade.class));
+        assertEquals("Porto Alegre", cidadeSalva.getCidade());
+        assertNotNull(cidadeSalva.getClima());
+        assertEquals(SituacaoClima.CHOVENDO, cidadeSalva.getClima().getSituacaoClima());
+        assertEquals(Turno.MANHÃ, cidadeSalva.getClima().getTurno());
+        assertEquals("2", cidadeSalva.getClima().getTemperatura());
+        assertEquals("1", cidadeSalva.getClima().getPrecipitacao());
+        assertEquals("2", cidadeSalva.getClima().getUmidade());
+        assertEquals("4", cidadeSalva.getClima().getVelVento());
+        assertEquals("12", cidadeSalva.getClima().getTempMaxima());
+        assertEquals("10", cidadeSalva.getClima().getTempMinima());
     }
 
     @Test
-    public void testCadastrarCidadeNula() {
+    @DisplayName("Cdastramos uma cidade sem nome e retornamos uma exceção")
+    public void deveRetornarExcecaoDeCidadeNula() {
         DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade(null, new DadosCadastroClima(
                 SituacaoClima.CHOVENDO,
                 Turno.MANHÃ,
-                "06/05/2024 15:00:00",
+                "06/05/2024",
                 "2",
                 "1",
                 "2",
@@ -87,13 +89,15 @@ public class CidadeServiceTest {
     }
 
     @Test
-    public void testCadastrarClimaNulo() {
+    @DisplayName("Cdastramos uma clima sem valores e retornamos uma exceção")
+    public void deveRetornarExcecaoDeClimaNulo() {
         DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade("Belo Horizonte", null);
         assertThrows(ClimaNotFoundException.class, () -> cidadeService.cadastrar(dadosCadastroCidade));
     }
 
     @Test
-    public void testAtualizarCidadeComSucesso() {
+    @DisplayName("Criamos uma cidade e atualizamos o valor de temperatura")
+    public void deveAtualizarUmCampo() {
         DadosAtualizarCidade atualizacao = new DadosAtualizarCidade(1L, "CidadeTeste",
                 new DadosCadastroClima(SituacaoClima.CHOVENDO,
                         Turno.MANHÃ,
@@ -125,7 +129,8 @@ public class CidadeServiceTest {
     }
 
     @Test
-    public void testExcluirCidadeComSucesso() {
+    @DisplayName("Excluimos a cidade por Id e verificamos se o método de deletar foi chamado.")
+    public void deveExcluirCidadePorId() {
         Long cidadeId = 1L;
         when(cidadeRepository.existsById(1L)).thenReturn(true);
         cidadeService.excluir(cidadeId);
@@ -134,7 +139,8 @@ public class CidadeServiceTest {
     }
 
     @Test
-    public void testExcluirCidadeComErro() {
+    @DisplayName("Esperamos que retorna uma exceçã quando a cidade com o ID especificado não existe")
+    public void deveLancarExcecaoEmIdInexistente() {
         Long cidadeId = 1L;
         when(cidadeRepository.existsById(1L)).thenReturn(false);
 
@@ -142,7 +148,8 @@ public class CidadeServiceTest {
     }
 
     @Test
-    public void testListarCidadesComSucesso() {
+    @DisplayName("Criamos duas cidades e esperamos que a quantidade de paginas seja duas.")
+    public void deveListarCidades() {
 
         List<Cidade> cidades = new ArrayList<>();
         cidades.add(new Cidade("Porto Alegre",new Clima(new DadosCadastroClima(
