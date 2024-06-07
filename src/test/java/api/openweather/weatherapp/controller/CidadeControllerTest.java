@@ -2,6 +2,7 @@ package api.openweather.weatherapp.controller;
 
 import api.openweather.weatherapp.model.dto.DadosAtualizarCidade;
 import com.jayway.jsonpath.JsonPath;
+import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -38,7 +39,8 @@ public class CidadeControllerTest {
         private MockMvc mockMvc;
 
         @Test
-        public void testCadastrar() throws Exception {
+        @Description("Cadastramos uma cidade e fazemos testes de existência e preenchimento dos campos")
+        public void deveCadastrarCidade() throws Exception {
 
                 DadosCadastroCidade novaCidadeJson = new DadosCadastroCidade("Porto Alegre", new DadosCadastroClima(
                                 SituacaoClima.CHOVENDO,
@@ -70,7 +72,8 @@ public class CidadeControllerTest {
         }
 
         @Test
-        public void testAtualizar() throws Exception {
+        @Description("Criamos uma cidade e depois atualizamos seus valores pelo ID")
+        public void deveAtualizarOsCampos() throws Exception {
 
                 DadosCadastroCidade novaCidade = new DadosCadastroCidade("Porto Alegre", new DadosCadastroClima(
                         SituacaoClima.CHOVENDO,
@@ -118,7 +121,8 @@ public class CidadeControllerTest {
         }
 
         @Test
-        public void testListar() throws Exception {
+        @Description("O teste deve utilizar o get pelo nome da Cidade")
+        public void deveListarCidadePeloNome() throws Exception {
 
                 int page = 0;
                 int size = 10;
@@ -134,7 +138,8 @@ public class CidadeControllerTest {
         }
 
         @Test
-        public void testListarComErro() throws Exception {
+        @Description("Ao listar um id 4(inexistente), o content deve ter tamanho 0")
+        public void listarComIdInexistente() throws Exception {
                 int page = 4;
                 int size = 10;
                 mockMvc.perform(MockMvcRequestBuilders.get("/cidades?page=4")
@@ -145,9 +150,11 @@ public class CidadeControllerTest {
                         .andExpect(jsonPath("$.content", hasSize(0)));
         }
         @Test
-        public void testExcluir() throws Exception {
+        @Description("Deve excluir a cidade com ID 1 do nosso banco, que é Porto Alegre")
+        public void deveExcluirCidade() throws Exception {
                 mockMvc.perform(MockMvcRequestBuilders.delete("/cidades/{id}", 1L)
                                 .contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(status().isNoContent());
+
         }
 }
