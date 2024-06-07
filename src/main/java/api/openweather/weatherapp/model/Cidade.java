@@ -1,8 +1,17 @@
 package api.openweather.weatherapp.model;
 
 import api.openweather.weatherapp.model.dto.DadosAtualizarCidade;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Table(name = "cidades")
 @Entity
@@ -26,20 +35,22 @@ public class Cidade {
     }
 
     public void setCidade(String cidade) {
-        if(cidade == null) throw new IllegalArgumentException("Cidade não poode ser nula");
+        if (cidade == null)
+            throw new IllegalArgumentException("Cidade não poode ser nula");
         this.cidade = cidade;
     }
 
     public void setClima(Clima clima) {
-        if(clima == null) throw new IllegalArgumentException("Clima não poode ser nulo");
+        if (clima == null)
+            throw new IllegalArgumentException("Clima não poode ser nulo");
         this.clima = clima;
     }
 
     public void atualizarInformacoes(DadosAtualizarCidade atualizacao) {
-        if(atualizacao.cidade() != null){
+        if (atualizacao.cidade() != null) {
             this.cidade = atualizacao.cidade();
         }
-        if(atualizacao.dadosCadastroClima() != null) {
+        if (atualizacao.dadosCadastroClima() != null) {
             this.clima.atualizarInformacoes(atualizacao.dadosCadastroClima());
         }
     }

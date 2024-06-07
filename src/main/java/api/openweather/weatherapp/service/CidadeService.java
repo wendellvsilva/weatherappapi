@@ -22,11 +22,11 @@ public class CidadeService {
 
     public Cidade cadastrar(DadosCadastroCidade dados) {
         if (dados.clima() == null) {
-            throw new ClimaNotFoundException();
+            throw new ClimaNotFoundException("Clima não pode ser nulo");
         }
 
         if (dados.cidade() == null) {
-            throw new CidadeNotFoundException();
+            throw new CidadeNotFoundException("Cidade não pode ser nula");
         }
 
         Clima clima = new Clima(dados.clima());

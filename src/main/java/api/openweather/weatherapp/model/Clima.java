@@ -1,14 +1,18 @@
 package api.openweather.weatherapp.model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import api.openweather.weatherapp.model.dto.DadosCadastroClima;
 import api.openweather.weatherapp.model.enums.SituacaoClima;
 import api.openweather.weatherapp.model.enums.Turno;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import lombok.*;
-
-import java.time.LocalDate;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Embeddable
 @Getter
@@ -28,11 +32,13 @@ public class Clima {
     @Enumerated(EnumType.STRING)
     private SituacaoClima situacaoClima;
 
+    private static final DateTimeFormatter FORMATACAO = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     @Enumerated(EnumType.STRING)
     private Turno turno;
 
     public Clima(DadosCadastroClima clima) {
-        this.data = LocalDate.parse(clima.data());
+        this.data = LocalDate.parse(clima.data(), FORMATACAO);
         this.umidade = clima.umidade();
         this.precipitacao = clima.precipitacao();
         this.temperatura = clima.temperatura();
@@ -45,7 +51,8 @@ public class Clima {
 
     public void atualizarInformacoes(DadosCadastroClima dadosClima) {
         if (dadosClima.data() != null) {
-            this.data = LocalDate.parse(dadosClima.data());
+            this.data = LocalDate.parse(dadosClima.data(), FORMATACAO);
+
         }
         if (dadosClima.umidade() != null) {
             this.umidade = dadosClima.umidade();
