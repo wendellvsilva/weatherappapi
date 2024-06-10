@@ -33,6 +33,7 @@ https://github.com/wendellvsilva/front-end-openweather
 2. **Como executar o projeto**
     - Abra o terminal e digite o comando ` mvn spring-boot:run`
     - Faça o comando ` SHIFT + F10`
+    - Crie um banco de dados chamado weatherapp.
 
 ## Fazendo requisições
    - Use o software Postman ou o Insomnia para fazer as requisições.
