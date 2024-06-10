@@ -1,10 +1,21 @@
 # Backend do projeto Weather App
 
-O Backend di projeto Weather App é uma aplicação que envolve SpringBoot, JUnit para os testes unitários e Mockito para os testes de integração. Além disso, temos um banco de dados em MySQL para armazenar nossos dados.
-O projeto foi proposto pela DB como parte do desafio final.<br>
+O Backend do projeto Weather App é uma API robusta e eficiente, desenvolvida para registrar e gerenciar informações climáticas de diversas cidades. Este sistema permite aos usuários inserir, atualizar, recuperar e deletar dados meteorológicos, oferecendo uma interface simples e intuitiva para a gestão de informações sobre o clima.
+
+Desenvolvido utilizando o framework Spring Boot, o projeto conta com testes unitários e de integração realizados com JUnit e Mockito, garantindo a confiabilidade e a integridade do código. Além disso, utilizamos um banco de dados MySQL para o armazenamento seguro e estruturado dos dados meteorológicos.
+
+Este projeto foi proposto pela DB como parte do desafio final, desafiando-nos a aplicar nossos conhecimentos em uma solução prática e funcional.<br>
 
 Link do repositório do frontend do projeto:<br>
 https://github.com/wendellvsilva/front-end-openweather
+
+. **Tecnologias utilizadas**
+    - Spring Boot: Framework principal para desenvolvimento da aplicação.
+    - JUnit: Framework para testes unitários.
+    - Mockito: Biblioteca para testes de integração.
+    - MySQL: Banco de dados relacional utilizado para armazenamento dos dados.
+    - Maven: Ferramenta de automação de compilação e gerenciamento de dependências.
+    - JaCoCo: Ferramenta para medição de cobertura de código em testes.
  
 
 1. **Configurações do Spring Boot:**
@@ -71,3 +82,8 @@ https://github.com/wendellvsilva/front-end-openweather
   ```
 **Métódo DELETE**
   - `http://localhost:8080/cidades/1`
+    ```
+
+**Como rodar os testes**
+ - Abra o terminal e digite o comando ` mvn test`
+
