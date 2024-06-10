@@ -10,13 +10,13 @@ Link do repositório do frontend do projeto:<br>
 https://github.com/wendellvsilva/front-end-openweather
 
 . **Tecnologias utilizadas**
-    - Spring Boot: Framework principal para desenvolvimento da aplicação.
-    - JUnit: Framework para testes unitários.
-    - Mockito: Biblioteca para testes de integração.
-    - MySQL: Banco de dados relacional utilizado para armazenamento dos dados.
-    - Maven: Ferramenta de automação de compilação e gerenciamento de dependências.
-    - JaCoCo: Ferramenta para medição de cobertura de código em testes.
- 
+    - Spring Boot: Framework principal para desenvolvimento da aplicação.<br>
+    - JUnit: Framework para testes unitários.<br>
+    - Mockito: Biblioteca para testes de integração.<br>
+    - MySQL: Banco de dados relacional utilizado para armazenamento dos dados.<br>
+    - Maven: Ferramenta de automação de compilação e gerenciamento de dependências.<br>
+    - JaCoCo: Ferramenta para medição de cobertura de código em testes.<br>
+
 
 1. **Configurações do Spring Boot:**
   - O arquivo application.properties deve conter a de conexão com o banco de dados MySQL.
