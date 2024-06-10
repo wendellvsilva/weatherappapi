@@ -82,7 +82,6 @@ https://github.com/wendellvsilva/front-end-openweather
   ```
 **Métódo DELETE**
   - `http://localhost:8080/cidades/1`
-    ```
 
 **Como rodar os testes**
  - Abra o terminal e digite o comando ` mvn test`
