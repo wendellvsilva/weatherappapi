@@ -2,7 +2,6 @@ package api.openweather.weatherapp.controller;
 
 import api.openweather.weatherapp.model.dto.DadosAtualizarCidade;
 import com.jayway.jsonpath.JsonPath;
-import jdk.jfr.Description;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

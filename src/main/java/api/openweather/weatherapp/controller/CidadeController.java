@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import api.openweather.weatherapp.model.Cidade;
@@ -41,6 +42,13 @@ public class CidadeController {
             @PageableDefault(size = 10, sort = { "cidade" }) Pageable pagina) {
         return ResponseEntity.ok().body(cidadeService.listar(pagina));
 
+    }
+    @GetMapping("/buscar")
+    public ResponseEntity<Page<DadosListagemCidade>> buscarPorNome(
+            @RequestParam(name = "nome") String nome,
+            @PageableDefault(size = 10, sort = { "cidade" }) Pageable pageable) {
+        Page<DadosListagemCidade> cidades = cidadeService.listarPorNome(nome, pageable);
+        return ResponseEntity.ok().body(cidades);
     }
 
     @PutMapping("/{id}")

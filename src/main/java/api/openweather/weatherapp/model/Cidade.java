@@ -1,5 +1,7 @@
 package api.openweather.weatherapp.model;
 
+import api.openweather.weatherapp.exceptions.CidadeNotFoundException;
+import api.openweather.weatherapp.exceptions.ClimaNotFoundException;
 import api.openweather.weatherapp.model.dto.DadosAtualizarCidade;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -36,13 +38,13 @@ public class Cidade {
 
     public void setCidade(String cidade) {
         if (cidade == null)
-            throw new IllegalArgumentException("Cidade não poode ser nula");
+            throw new CidadeNotFoundException("Cidade não pode ser nula");
         this.cidade = cidade;
     }
 
     public void setClima(Clima clima) {
         if (clima == null)
-            throw new IllegalArgumentException("Clima não poode ser nulo");
+            throw new ClimaNotFoundException("Clima não poode ser nulo");
         this.clima = clima;
     }
 

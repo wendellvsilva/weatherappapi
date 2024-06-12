@@ -1,18 +1,20 @@
 package api.openweather.weatherapp.service;
 
-import api.openweather.weatherapp.exceptions.CidadeNotFoundException;
-import api.openweather.weatherapp.exceptions.ClimaNotFoundException;
-import api.openweather.weatherapp.model.Clima;
-import api.openweather.weatherapp.model.dto.DadosCadastroCidade;
-import api.openweather.weatherapp.model.Cidade;
-import api.openweather.weatherapp.repository.CidadeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.Optional;
 
-import api.openweather.weatherapp.model.dto.DadosAtualizarCidade;
-import api.openweather.weatherapp.model.dto.DadosListagemCidade;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import api.openweather.weatherapp.exceptions.CidadeNotFoundException;
+import api.openweather.weatherapp.exceptions.ClimaNotFoundException;
+import api.openweather.weatherapp.model.Cidade;
+import api.openweather.weatherapp.model.Clima;
+import api.openweather.weatherapp.model.dto.DadosAtualizarCidade;
+import api.openweather.weatherapp.model.dto.DadosCadastroCidade;
+import api.openweather.weatherapp.model.dto.DadosListagemCidade;
+import api.openweather.weatherapp.repository.CidadeRepository;
 
 @Service
 public class CidadeService {
@@ -32,6 +34,10 @@ public class CidadeService {
         Clima clima = new Clima(dados.clima());
         Cidade cidade = new Cidade(dados.cidade(), clima);
         return repository.save(cidade);
+    }
+    public Page<DadosListagemCidade> listarPorNome(String nome, Pageable pageable) {
+        Page<Cidade> cidades = repository.findByCidade(nome, pageable);
+        return cidades.map(DadosListagemCidade::new);
     }
 
     public Page<DadosListagemCidade> listar(Pageable pagina) {

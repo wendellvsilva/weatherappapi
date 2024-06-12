@@ -2,7 +2,6 @@ package api.openweather.weatherapp.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.text.SimpleDateFormat;
 
 import api.openweather.weatherapp.exceptions.CidadeNotFoundException;
 import api.openweather.weatherapp.exceptions.ClimaNotFoundException;
