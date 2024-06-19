@@ -50,8 +50,8 @@ public class CidadeControllerTest {
                                 "1",
                                 "2",
                                 "4",
-                                "6",
-                                "10"));
+                                "6"
+                ));
                 ObjectMapper objectMapper = new ObjectMapper();
                 String cidadeJson = objectMapper.writeValueAsString(novaCidadeJson);
                 mockMvc.perform(MockMvcRequestBuilders.post("/cidades")
@@ -64,7 +64,6 @@ public class CidadeControllerTest {
                                 .andExpect(jsonPath("$.clima.turno").isNotEmpty())
                                 .andExpect(jsonPath("$.clima.umidade").exists())
                                 .andExpect(jsonPath("$.clima.precipitacao").exists())
-                                .andExpect(jsonPath("$.clima.temperatura").exists())
                                 .andExpect(jsonPath("$.clima.velVento").exists())
                                 .andExpect(jsonPath("$.clima.tempMaxima").exists())
                                 .andExpect(jsonPath("$.clima.tempMinima").exists());
@@ -83,8 +82,8 @@ public class CidadeControllerTest {
                         "5",
                         "0",
                         "15",
-                        "10",
-                        "30"));
+                        "10"
+                ));
 
                 ObjectMapper objectMapper = new ObjectMapper();
                 String cidadeJson = objectMapper.writeValueAsString(novaCidade);
@@ -108,8 +107,7 @@ public class CidadeControllerTest {
                                 "1",
                                 "2",
                                 "4",
-                                "2",
-                                "10"));
+                                "2"));
 
                 String atualizacaoJson = objectMapper.writeValueAsString(atualizacao);
 

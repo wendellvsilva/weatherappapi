@@ -52,8 +52,8 @@ public class CidadeServiceTest {
                 "1",
                 "2",
                 "4",
-                "12",
-                "10"));
+                "12"
+        ));
 
 
         when(cidadeRepository.save(any(Cidade.class))).thenAnswer(invocation -> invocation.getArgument(0));
@@ -63,12 +63,12 @@ public class CidadeServiceTest {
         assertNotNull(cidadeSalva.getClima());
         assertEquals(SituacaoClima.CHOVENDO, cidadeSalva.getClima().getSituacaoClima());
         assertEquals(Turno.MANHÃ, cidadeSalva.getClima().getTurno());
-        assertEquals("2", cidadeSalva.getClima().getTemperatura());
+
         assertEquals("1", cidadeSalva.getClima().getPrecipitacao());
         assertEquals("2", cidadeSalva.getClima().getUmidade());
-        assertEquals("4", cidadeSalva.getClima().getVelVento());
-        assertEquals("12", cidadeSalva.getClima().getTempMaxima());
-        assertEquals("10", cidadeSalva.getClima().getTempMinima());
+        assertEquals("2", cidadeSalva.getClima().getVelVento());
+        assertEquals("4", cidadeSalva.getClima().getTempMaxima());
+        assertEquals("12", cidadeSalva.getClima().getTempMinima());
     }
 
     @Test
@@ -82,8 +82,7 @@ public class CidadeServiceTest {
                 "1",
                 "2",
                 "4",
-                "6",
-                "10"));
+                "6"));
         assertThrows(CidadeNotFoundException.class, () -> cidadeService.cadastrar(dadosCadastroCidade));
     }
 
@@ -105,8 +104,8 @@ public class CidadeServiceTest {
                         "1",
                         "2",
                         "4",
-                        "2",
-                        "10"));
+                        "2"
+                ));
         Cidade cidade = new Cidade(1L, "CidadeTeste", new Clima(new DadosCadastroClima(SituacaoClima.CHOVENDO,
                 Turno.MANHÃ,
                 "06/05/2024",
@@ -114,8 +113,8 @@ public class CidadeServiceTest {
                 "1",
                 "8",
                 "4",
-                "2",
-                "10")));
+                "2"
+        )));
 
         when(cidadeRepository.findById(anyLong())).thenReturn(Optional.of(cidade));
         when(cidadeRepository.save(any(Cidade.class))).thenReturn(cidade);
@@ -159,8 +158,8 @@ public class CidadeServiceTest {
                 "1",
                 "2",
                 "4",
-                "6",
-                "10"))));
+                "6"
+        ))));
         cidades.add(new Cidade("São Paulo",new Clima(new DadosCadastroClima(
                 SituacaoClima.CHOVENDO,
                 Turno.MANHÃ,
@@ -169,8 +168,7 @@ public class CidadeServiceTest {
                 "1",
                 "2",
                 "4",
-                "6",
-                "10"))));
+                "6"))));
         Page<Cidade> paginaCidades = new PageImpl<>(cidades);
 
         when(cidadeRepository.findAll(any(Pageable.class))).thenReturn(paginaCidades);

@@ -24,7 +24,6 @@ public class Clima {
 
     private String umidade;
     private String precipitacao;
-    private String temperatura;
     private String velVento;
     private String tempMaxima;
     private String tempMinima;
@@ -41,7 +40,7 @@ public class Clima {
         this.data = LocalDate.parse(clima.data(), FORMATACAO);
         this.umidade = clima.umidade();
         this.precipitacao = clima.precipitacao();
-        this.temperatura = clima.temperatura();
+
         this.velVento = clima.velVento();
         this.tempMaxima = clima.tempMaxima();
         this.tempMinima = clima.tempMinima();
@@ -59,9 +58,6 @@ public class Clima {
         }
         if (dadosClima.precipitacao() != null) {
             this.precipitacao = dadosClima.precipitacao();
-        }
-        if (dadosClima.temperatura() != null) {
-            this.temperatura = dadosClima.temperatura();
         }
         if (dadosClima.velVento() != null) {
             this.velVento = dadosClima.velVento();

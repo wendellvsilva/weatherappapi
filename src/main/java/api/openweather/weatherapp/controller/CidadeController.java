@@ -44,7 +44,7 @@ public class CidadeController {
                         cidade.getClima().getData().toString(),
                         cidade.getClima().getUmidade(),
                         cidade.getClima().getPrecipitacao(),
-                        cidade.getClima().getTemperatura(),
+
                         cidade.getClima().getVelVento(),
                         cidade.getClima().getTempMaxima(),
                         cidade.getClima().getTempMinima()

@@ -18,8 +18,6 @@ public record DadosCadastroClima (
         @NotNull
         String precipitacao,
         @NotNull
-        String temperatura,
-        @NotNull
         String velVento,
         @NotNull
         String tempMaxima,
