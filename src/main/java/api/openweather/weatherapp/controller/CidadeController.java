@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import api.openweather.weatherapp.model.Cidade;
 import api.openweather.weatherapp.model.dto.DadosAtualizarCidade;
 import api.openweather.weatherapp.model.dto.DadosCadastroCidade;
+import api.openweather.weatherapp.model.dto.DadosCadastroClima;
 import api.openweather.weatherapp.model.dto.DadosListagemCidade;
 import api.openweather.weatherapp.service.CidadeService;
 import jakarta.validation.Valid;
@@ -32,9 +33,24 @@ public class CidadeController {
     private CidadeService cidadeService;
 
     @PostMapping
-    public ResponseEntity<Cidade> cadastrar(@RequestBody DadosCadastroCidade dados) {
+    public ResponseEntity<DadosCadastroCidade> cadastrar(@RequestBody @Valid DadosCadastroCidade dados) {
         Cidade cidade = cidadeService.cadastrar(dados);
-        return ResponseEntity.status(201).body(cidade);
+        DadosCadastroCidade response = new DadosCadastroCidade(
+                cidade.getId(),
+                cidade.getCidade(),
+                new DadosCadastroClima(
+                        cidade.getClima().getSituacaoClima(),
+                        cidade.getClima().getTurno(),
+                        cidade.getClima().getData().toString(),
+                        cidade.getClima().getUmidade(),
+                        cidade.getClima().getPrecipitacao(),
+                        cidade.getClima().getTemperatura(),
+                        cidade.getClima().getVelVento(),
+                        cidade.getClima().getTempMaxima(),
+                        cidade.getClima().getTempMinima()
+                )
+        );
+        return ResponseEntity.status(201).body(response);
     }
 
     @GetMapping

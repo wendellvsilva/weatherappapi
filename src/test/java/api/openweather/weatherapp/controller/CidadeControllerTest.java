@@ -42,7 +42,7 @@ public class CidadeControllerTest {
         @DisplayName("Cadastramos uma cidade e fazemos testes de existência e preenchimento dos campos")
         public void deveCadastrarCidade() throws Exception {
 
-                DadosCadastroCidade novaCidadeJson = new DadosCadastroCidade("Porto Alegre", new DadosCadastroClima(
+                DadosCadastroCidade novaCidadeJson = new DadosCadastroCidade(1L,"Porto Alegre", new DadosCadastroClima(
                                 SituacaoClima.CHOVENDO,
                                 Turno.MANHÃ,
                                 "06/05/2024",
@@ -75,7 +75,7 @@ public class CidadeControllerTest {
         @DisplayName("Criamos uma cidade e depois atualizamos seus valores pelo ID")
         public void deveAtualizarOsCampos() throws Exception {
 
-                DadosCadastroCidade novaCidade = new DadosCadastroCidade("Porto Alegre", new DadosCadastroClima(
+                DadosCadastroCidade novaCidade = new DadosCadastroCidade(8L,"Porto Alegre", new DadosCadastroClima(
                         SituacaoClima.CHOVENDO,
                         Turno.TARDE,
                         "06/05/2024",

@@ -44,7 +44,7 @@ public class CidadeServiceTest {
     @DisplayName("Deve cadastrar com os campos corretos.")
     public void deveCadastrarComSucesso() {
 
-        DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade("Porto Alegre", new DadosCadastroClima(
+        DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade(1L,"Porto Alegre", new DadosCadastroClima(
                 SituacaoClima.CHOVENDO,
                 Turno.MANHÃ,
                 "06/05/2024",
@@ -74,7 +74,7 @@ public class CidadeServiceTest {
     @Test
     @DisplayName("Cdastramos uma cidade sem nome e retornamos uma exceção")
     public void deveRetornarExcecaoDeCidadeNula() {
-        DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade(null, new DadosCadastroClima(
+        DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade(1L, null, new DadosCadastroClima(
                 SituacaoClima.CHOVENDO,
                 Turno.MANHÃ,
                 "06/05/2024",
@@ -90,7 +90,7 @@ public class CidadeServiceTest {
     @Test
     @DisplayName("Cdastramos uma clima sem valores e retornamos uma exceção")
     public void deveRetornarExcecaoDeClimaNulo() {
-        DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade("Belo Horizonte", null);
+        DadosCadastroCidade dadosCadastroCidade = new DadosCadastroCidade(1L, "Belo Horizonte", null);
         assertThrows(ClimaNotFoundException.class, () -> cidadeService.cadastrar(dadosCadastroCidade));
     }
 

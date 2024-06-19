@@ -28,6 +28,7 @@ public class Cidade {
     private Long id;
 
     private String cidade;
+
     @Embedded
     private Clima clima;
 
@@ -44,7 +45,7 @@ public class Cidade {
 
     public void setClima(Clima clima) {
         if (clima == null)
-            throw new ClimaNotFoundException("Clima não poode ser nulo");
+            throw new ClimaNotFoundException("Clima não pode ser nulo");
         this.clima = clima;
     }
 
@@ -57,4 +58,11 @@ public class Cidade {
         }
     }
 
+    public String getCidade() {
+        return cidade;
+    }
+
+    public Clima getClima() {
+        return clima;
+    }
 }
