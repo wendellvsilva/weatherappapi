@@ -1,6 +1,5 @@
 package api.openweather.weatherapp.service;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,17 +22,23 @@ public class CidadeService {
     private CidadeRepository repository;
 
     public Cidade cadastrar(DadosCadastroCidade dados) {
-        if (dados.clima() == null) {
-            throw new ClimaNotFoundException("Clima não pode ser nulo");
-        }
-
-        if (dados.cidade() == null) {
-            throw new CidadeNotFoundException("Cidade não pode ser nula");
-        }
-
+        verificaSeClimaestaNulo(dados);
+        verificaSeCidadeestaNula(dados);
         Clima clima = new Clima(dados.clima());
         Cidade cidade = new Cidade(dados.cidade(), clima);
         return repository.save(cidade);
+    }
+
+    private static void verificaSeCidadeestaNula(DadosCadastroCidade dados) {
+        if (dados.cidade() == null) {
+            throw new CidadeNotFoundException("Cidade não pode ser nula");
+        }
+    }
+
+    private static void verificaSeClimaestaNulo(DadosCadastroCidade dados) {
+        if (dados.clima() == null) {
+            throw new ClimaNotFoundException("Clima não pode ser nulo");
+        }
     }
     public Page<DadosListagemCidade> listarPorNome(String nome, Pageable pageable) {
         Page<Cidade> cidades = repository.findByCidade(nome, pageable);
