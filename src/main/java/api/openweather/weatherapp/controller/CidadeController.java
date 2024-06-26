@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/cidades")
+@Validated
 @CrossOrigin(origins = "http://localhost:3000")
 public class CidadeController {
 
@@ -55,6 +57,13 @@ public class CidadeController {
 
     @GetMapping
     public ResponseEntity<Page<DadosListagemCidade>> listar(
+            @PageableDefault(size = 10, sort = { "cidade" }) Pageable pagina) {
+        return ResponseEntity.ok().body(cidadeService.listar(pagina));
+
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Page<DadosListagemCidade>> buscarporId(
             @PageableDefault(size = 10, sort = { "cidade" }) Pageable pagina) {
         return ResponseEntity.ok().body(cidadeService.listar(pagina));
 
