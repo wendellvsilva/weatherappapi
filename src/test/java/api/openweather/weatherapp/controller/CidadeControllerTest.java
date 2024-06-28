@@ -63,7 +63,7 @@ public class CidadeControllerTest {
                                 .andExpect(jsonPath("$.clima.turno").exists())
                                 .andExpect(jsonPath("$.clima.turno").isNotEmpty())
                                 .andExpect(jsonPath("$.clima.umidade").exists())
-                                .andExpect(jsonPath("$.clima.precipitacao").exists())
+                                .andExpect(jsonPath("$.clima.precipitacao").exists())   
                                 .andExpect(jsonPath("$.clima.velVento").exists())
                                 .andExpect(jsonPath("$.clima.tempMaxima").exists())
                                 .andExpect(jsonPath("$.clima.tempMinima").exists());

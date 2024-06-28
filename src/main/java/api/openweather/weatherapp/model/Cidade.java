@@ -38,14 +38,10 @@ public class Cidade {
     }
 
     public void setCidade(String cidade) {
-        if (cidade == null)
-            throw new CidadeNotFoundException("Cidade não pode ser nula");
         this.cidade = cidade;
     }
 
     public void setClima(Clima clima) {
-        if (clima == null)
-            throw new ClimaNotFoundException("Clima não pode ser nulo");
         this.clima = clima;
     }
 
@@ -56,13 +52,5 @@ public class Cidade {
         if (atualizacao.dadosCadastroClima() != null) {
             this.clima.atualizarInformacoes(atualizacao.dadosCadastroClima());
         }
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public Clima getClima() {
-        return clima;
     }
 }
